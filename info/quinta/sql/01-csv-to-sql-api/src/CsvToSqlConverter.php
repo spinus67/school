@@ -25,8 +25,31 @@ final class CsvToSqlConverter
 
         $columns = fgetcsv($stream, null, ',', '"', ''); 
 
-        $rows = [];
+        $rows = fgetcsv($stream, null, ',', '"', ''); 
+        
+        $insert = "INSERT INTO `school`.`students` (`first_name`, `last_name`, `age`) VALUES\n"
+        . "('$rows[0]', '$rows[1]', $rows[2]);";
+
+        
     
-        throw new LogicException('Converter not implemented yet.');
-    }
+        return $insert;
+
+        $insert = "INSERT INTO `school`.`students` (`first_name`, `last_name`, `age`) VALUES\n";
+        $columns = fgetcsv($stream, null, ',', '"', ''); 
+
+        $rows = fgetcsv($stream, null, ',', '"', ''); 
+        
+        $values = [];
+
+        while (($rows = fgetcsv($stream, null, ',', '"', '')) == true) {
+        $values[] = "('$rows[0]', '$rows[1]', $rows[2])";
+            
+        return $insert;
+    
+         }
+
+        
+
+        
+  }
 }
